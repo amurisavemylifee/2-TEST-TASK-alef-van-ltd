@@ -1,30 +1,51 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+  <Navbar />
+  <router-view></router-view>
+  <Footer />
 </template>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+<script>
+import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue";
+export default {
+  data() {
+    return {
+      Parent: {
+        Name: "Виталий",
+        Age: 30,
+      },
+      Childs: [
+        {
+          Name: "Маша",
+          Age: 56,
+        },
+        {
+          Name: "Оля",
+          Age: 11,
+        },
+        {
+          Name: "Катя",
+          Age: 14,
+        },
+        {
+          Name: "Лена",
+          Age: 33,
+        },
+        {
+          Name: "Виктория",
+          Age: 21,
+        },
+      ],
+    };
+  },
+  provide() {
+    return {
+      ParentData: this.Parent,
+      ChildsData: this.Childs,
+    };
+  },
+  components: {
+    Navbar,
+    Footer,
+  },
+};
+</script>
