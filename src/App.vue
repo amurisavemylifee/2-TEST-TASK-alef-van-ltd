@@ -13,12 +13,7 @@ export default {
       name: "Виталий",
       age: "31",
     });
-    let Childs = ref([
-      {
-        name: "Маша",
-        age: "3",
-      },
-    ]);
+    let Childs = ref([]);
     provide("ParentData", Parent);
     provide("ChildsData", Childs.value);
   },
