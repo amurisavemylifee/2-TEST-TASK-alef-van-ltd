@@ -5,11 +5,13 @@
       :input_label="'Имя'"
       :input_value="name"
       @inputChange="InputChanges"
+      @keypress.enter="this.$emit('enterPress')"
     />
     <Input
       :input_label="'Возраст'"
       :input_value="age"
       @inputChange="InputChanges"
+      @keypress.enter="this.$emit('enterPress')"
     />
     <div class="delete-btn" @click="this.$emit('DeleteChild')">Удалить</div>
   </div>

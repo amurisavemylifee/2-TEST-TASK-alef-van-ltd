@@ -1,11 +1,10 @@
 <template>
   <nav class="nav">
-    <router-link to="/form" style="padding: 30px; background-color: green"
-      >1</router-link
-    >
-    <router-link to="/preview" style="padding: 30px; background-color: blue"
-      >2</router-link
-    >
+    <div class="list">
+      <img src="@/assets/logo.png" alt="Logo" class="logo" />
+      <router-link to="/form" class="list-link">Форма</router-link>
+      <router-link to="/preview" class="list-link">Превью</router-link>
+    </div>
   </nav>
 </template>
 

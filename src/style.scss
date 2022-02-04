@@ -31,13 +31,17 @@ button {
 body {
 	font-family: "Montserrat", sans-serif;
 }
+img {
+	display: inline-block;
+}
 /*=============== CONTAINER ===============*/
 .container {
 	max-width: 676px;
 	padding: 0 30px;
 	margin: 0 auto;
 	box-sizing: border-box;
-	height: 616px;
+	min-height: 616px;
+	margin-bottom: 30px;
 }
 /*=============== NAVBAR ===============*/
 .nav {
@@ -121,4 +125,23 @@ body {
 	border-radius: 100px;
 	padding: 10px 20px;
 	cursor: pointer;
+}
+.list {
+	display: flex;
+	margin: 0 auto;
+	max-width: 1180px;
+	align-items: center;
+	padding-top: 30px;
+	color: rgba(17, 17, 17, 0.48);
+	font-size: 14px;
+	line-height: 24px;
+	&-link {
+		cursor: pointer;
+	}
+	&-link + &-link {
+		margin-left: 25px;
+	}
+	.logo {
+		margin-right: 30vw;
+	}
 }

@@ -31,6 +31,7 @@
         :childID="id"
         @DeleteChild="DeleteChild(id)"
         @inputChange="ChildDataLocalSave"
+        @enterPress="SaveData"
       ></child-forms>
     </div>
     <!-- Кнопка сохранения форм -->
