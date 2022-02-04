@@ -1,53 +1,88 @@
 <!-- eslint-disable -->
 <template>
   <div class="container">
-    <div class="form__title">Персональные данные</div>
+    <!-- Формы для изменения данных родителя -->
+    <div class="title">Персональные данные</div>
     <Input
-      :label_value="'Имя'"
-      :PlaceholderData="ParentData.Name"
-      @changeInput="console.log()"
+      :input_label="'Имя'"
+      :input_value="Form_Parent_Data.name"
+      @inputChange="ParentDataChange"
+      @keypress.enter="SaveData"
     />
-    <Input :label_value="'Возраст'" :PlaceholderData="ParentData.Age" />
-    <div class="form__title">Дети (макс. 5)</div>
-    <AddBtn class="add-btn" @click="AddChild()" v-if="!BlockButton" />
+    <Input
+      :input_label="'Возраст'"
+      :input_value="Form_Parent_Data.age"
+      @inputChange="ParentDataChange"
+      @keypress.enter="SaveData"
+    />
+    <!-- Формы для изменения данных детей -->
+    <div class="title">Дети (макс. 5)</div>
+    <!-- Кнопка добавления ребенка(если детей 5 она исчезает) -->
+    <button class="add-btn" v-if="!BlockButton" @click="AddChild()">
+      <img src="@/assets/Union.png" />
+      Добавить ребенка
+    </button>
+    <!-- Флекс обертка для форм с данными детей -->
     <div class="flex-wrapper">
-      <div class="child__wrapper" v-for="(Child, id) in ChildsData">
-        <Input :label_value="'Имя'" :PlaceholderData="Child.Name" />
-        <Input :label_value="'Возраст'" :PlaceholderData="Child.Age" />
-        <div class="delete-btn" @click="DeleteChild(id)">Удалить</div>
-      </div>
+      <child-forms
+        v-for="(Child, id) in Form_Childs_Data"
+        :key="Child"
+        :child_data="Child"
+        :childID="id"
+        @DeleteChild="DeleteChild(id)"
+        @inputChange="ChildDataLocalSave"
+      ></child-forms>
     </div>
-    <SaveBtn class="save-btn" />
+    <!-- Кнопка сохранения форм -->
+    <button class="save-btn" @click="SaveData">Сохранить</button>
   </div>
 </template>
 
 <script>
+import ChildForms from "../components/ChildForms.vue";
 import Input from "../components/Input.vue";
-import AddBtn from "../components/AddChildButton.vue";
-import SaveBtn from "../components/SaveButton.vue";
 export default {
   data() {
     return {
-      ParentFormValues: { Name: "", Age: "" },
+      Form_Parent_Data: {
+        name: this.ParentData.name,
+        age: this.ParentData.age,
+      },
+      // slice использован для копирования списка
+      Form_Childs_Data: this.ChildsData.slice(),
     };
   },
   inject: ["ParentData", "ChildsData"],
   components: {
     Input,
-    AddBtn,
-    SaveBtn,
+    ChildForms,
   },
   computed: {
     BlockButton() {
-      return this.ChildsData.length == 5 ? true : false;
+      return this.Form_Childs_Data.length == 5 ? true : false;
     },
   },
   methods: {
-    DeleteChild(id) {
-      this.ChildsData.splice(id, 1);
-    },
     AddChild() {
-      this.ChildsData.push({ Name: "", Age: "" });
+      this.Form_Childs_Data.push({ name: "", age: "" });
+    },
+    DeleteChild(id) {
+      this.Form_Childs_Data.splice(id, 1);
+    },
+    ChildDataLocalSave(name, age, id) {
+      this.Form_Childs_Data[id].name = name;
+      this.Form_Childs_Data[id].age = age;
+    },
+    ParentDataChange(type, value) {
+      if (type == "Имя") {
+        this.Form_Parent_Data.name = value;
+      } else if (type == "Возраст") {
+        this.Form_Parent_Data.age = value;
+      }
+    },
+    SaveData() {
+      this.ParentData.name = this.Form_Parent_Data.name;
+      this.ParentData.age = this.Form_Parent_Data.age;
     },
   },
 };

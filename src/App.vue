@@ -1,38 +1,22 @@
 <template>
-  <Navbar />
+  <Header />
   <router-view></router-view>
   <Footer />
 </template>
 <script>
-import Navbar from "./components/Navbar.vue";
-import Footer from "./components/Footer.vue";
+import Header from "./components/TheHeader.vue";
+import Footer from "./components/TheFooter.vue";
 export default {
   data() {
     return {
       Parent: {
-        Name: "Виталий",
-        Age: 30,
+        name: "Виталий",
+        age: "31",
       },
       Childs: [
         {
-          Name: "Маша",
-          Age: 56,
-        },
-        {
-          Name: "Оля",
-          Age: 11,
-        },
-        {
-          Name: "Катя",
-          Age: 14,
-        },
-        {
-          Name: "Лена",
-          Age: 33,
-        },
-        {
-          Name: "Виктория",
-          Age: 21,
+          name: "Маша",
+          age: "3",
         },
       ],
     };
@@ -44,8 +28,9 @@ export default {
     };
   },
   components: {
-    Navbar,
+    Header,
     Footer,
   },
+  methods: {},
 };
 </script>

@@ -1,11 +1,11 @@
 <template>
   <div class="input_wrapper">
-    <div class="label">{{ label_value }}</div>
+    <div class="label">{{ label }}</div>
     <input
       type="text"
       class="input"
-      :value="PlaceholderData"
-      @input="$emit('changeInput', PlaceholderData)"
+      v-model="value"
+      @input="this.$emit('inputChange', label, value)"
     />
   </div>
 </template>
@@ -14,15 +14,16 @@
 export default {
   data() {
     return {
-      label_text: this.label_value,
+      value: this.input_value,
+      label: this.input_label,
     };
   },
   props: {
-    label_value: {
+    input_label: {
       type: String,
       default: "",
     },
-    PlaceholderData: {
+    input_value: {
       type: String,
       default: "",
     },
