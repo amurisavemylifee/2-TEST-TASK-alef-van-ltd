@@ -4,33 +4,27 @@
   <Footer />
 </template>
 <script>
+import { provide, ref, reactive } from "vue";
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
 export default {
-  data() {
-    return {
-      Parent: {
-        name: "Виталий",
-        age: "31",
+  setup() {
+    let Parent = reactive({
+      name: "Виталий",
+      age: "31",
+    });
+    let Childs = ref([
+      {
+        name: "Маша",
+        age: "3",
       },
-      Childs: [
-        {
-          name: "Маша",
-          age: "3",
-        },
-      ],
-    };
-  },
-  provide() {
-    return {
-      ParentData: this.Parent,
-      ChildsData: this.Childs,
-    };
+    ]);
+    provide("ParentData", Parent);
+    provide("ChildsData", Childs.value);
   },
   components: {
     Header,
     Footer,
   },
-  methods: {},
 };
 </script>

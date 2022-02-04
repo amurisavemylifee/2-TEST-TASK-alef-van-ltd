@@ -48,8 +48,7 @@ export default {
         name: this.ParentData.name,
         age: this.ParentData.age,
       },
-      // slice использован для копирования списка
-      Form_Childs_Data: this.ChildsData.slice(),
+      Form_Childs_Data: [],
     };
   },
   inject: ["ParentData", "ChildsData"],
@@ -83,7 +82,37 @@ export default {
     SaveData() {
       this.ParentData.name = this.Form_Parent_Data.name;
       this.ParentData.age = this.Form_Parent_Data.age;
+      if (this.ChildsData.length < this.Form_Childs_Data.length) {
+        for (
+          let i = this.ChildsData.length;
+          i < this.Form_Childs_Data.length;
+          i++
+        ) {
+          this.ChildsData.push({});
+        }
+      } else {
+        for (
+          let i = this.Form_Childs_Data.length;
+          i < this.ChildsData.length;
+
+        ) {
+          this.ChildsData.splice(0, 1);
+        }
+      }
+      for (let i = 0; i < this.ChildsData.length; i++) {
+        this.ChildsData[i] = this.Form_Childs_Data[i];
+      }
+      console.log(this.ChildsData);
+      console.log(this.Form_Childs_Data);
     },
+  },
+  mounted() {
+    for (let i = 0; i < this.ChildsData.length; i++) {
+      this.Form_Childs_Data.push({});
+      for (let variable in this.ChildsData[i]) {
+        this.Form_Childs_Data[i][variable] = this.ChildsData[i][variable];
+      }
+    }
   },
 };
 </script>
