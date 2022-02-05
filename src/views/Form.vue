@@ -103,8 +103,6 @@ export default {
       for (let i = 0; i < this.ChildsData.length; i++) {
         this.ChildsData[i] = this.Form_Childs_Data[i];
       }
-      console.log(this.ChildsData);
-      console.log(this.Form_Childs_Data);
     },
   },
   mounted() {
