@@ -1,4 +1,3 @@
-<!-- eslint-disable -->
 <template>
   <div class="container">
     <!-- Формы для изменения данных родителя -->
@@ -118,4 +117,3 @@ export default {
   },
 };
 </script>
-<!-- eslint-enable -->
