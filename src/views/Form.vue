@@ -97,7 +97,7 @@ export default {
       if (
         obj.name != "" &&
         obj.age != "" &&
-        /^[a-zA-ZА-Яа-я]*$/g.test(obj.name) &&
+        /^[a-zA-ZА-Яа-я\u0020]*$/g.test(obj.name) &&
         /^[0-9]*$/g.test(obj.age)
       ) {
         return true;
