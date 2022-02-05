@@ -145,3 +145,11 @@ img {
 		margin-right: 30vw;
 	}
 }
+@media (max-width: 426px) {
+	.add-btn span {
+		display: none;
+	}
+	.add-btn img {
+		margin-right: 0px;
+	}
+}

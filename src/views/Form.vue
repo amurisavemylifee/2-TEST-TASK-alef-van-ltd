@@ -19,7 +19,7 @@
     <!-- Кнопка добавления ребенка(если детей 5 она исчезает) -->
     <button class="add-btn" v-if="!ChildCountCheck" @click="AddChild()">
       <img src="@/assets/Union.png" />
-      Добавить ребенка
+      <span>Добавить ребенка</span>
     </button>
     <!-- Флекс обертка для форм с данными детей -->
     <div class="flex-wrapper">
