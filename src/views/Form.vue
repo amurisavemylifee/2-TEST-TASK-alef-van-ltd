@@ -87,6 +87,7 @@ export default {
         Object.values(this.FormChildsData).forEach((el) =>
           this.ChildsData.push(el)
         );
+        this.$router.push("preview");
       } else {
         alert("Введены некорректные данные");
       }
