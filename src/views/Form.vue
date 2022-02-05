@@ -87,26 +87,10 @@ export default {
       ) {
         this.ParentData.name = this.Form_Parent_Data.name;
         this.ParentData.age = this.Form_Parent_Data.age;
-        if (this.ChildsData.length < this.Form_Childs_Data.length) {
-          for (
-            let i = this.ChildsData.length;
-            i < this.Form_Childs_Data.length;
-            i++
-          ) {
-            this.ChildsData.push({});
-          }
-        } else {
-          for (
-            let i = this.Form_Childs_Data.length;
-            i < this.ChildsData.length;
-
-          ) {
-            this.ChildsData.splice(0, 1);
-          }
-        }
-        for (let i = 0; i < this.ChildsData.length; i++) {
-          this.ChildsData[i] = this.Form_Childs_Data[i];
-        }
+        this.ChildsData.splice(0);
+        Object.values(this.Form_Childs_Data).forEach((el) =>
+          this.ChildsData.push(el)
+        );
       } else {
         alert("Введены некорректные данные");
       }
