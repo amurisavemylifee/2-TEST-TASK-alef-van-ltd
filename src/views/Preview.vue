@@ -24,48 +24,20 @@ export default {
   },
   methods: {
     AgeCheck(age) {
-      if (
-        ["1", "21", "31", "41", "51", "61", "71", "81", "91", "101"].includes(
-          age
-        )
-      ) {
-        return "год";
-      } else if (
-        [
-          "2",
-          "3",
-          "4",
-          "22",
-          "23",
-          "24",
-          "32",
-          "33",
-          "34",
-          "42",
-          "43",
-          "44",
-          "52",
-          "53",
-          "54",
-          "62",
-          "63",
-          "64",
-          "72",
-          "73",
-          "74",
-          "82",
-          "83",
-          "84",
-          "92",
-          "93",
-          "94",
-        ].includes(age)
-      ) {
-        return "года";
-      } else {
+      if (age.slice(-2, -1)[0] == "1") {
         return "лет";
+      } else if (["1"].includes(age.slice(-1))) {
+        return "год";
+      } else if (["2", "3", "4"].includes(age.slice(-1))) {
+        return "года";
       }
+      return "лет";
     },
+  },
+  provide() {
+    return {
+      AgeCheck: this.AgeCheck,
+    };
   },
 };
 </script>
