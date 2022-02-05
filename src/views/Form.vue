@@ -4,13 +4,13 @@
     <div class="title">Персональные данные</div>
     <Input
       :input_label="'Имя'"
-      :input_value="Form_Parent_Data.name"
+      :input_value="FormParentData.name"
       @inputChange="ParentDataChange"
       @keypress.enter="SaveData"
     />
     <Input
       :input_label="'Возраст'"
-      :input_value="Form_Parent_Data.age"
+      :input_value="FormParentData.age"
       @inputChange="ParentDataChange"
       @keypress.enter="SaveData"
     />
@@ -24,7 +24,7 @@
     <!-- Флекс обертка для форм с данными детей -->
     <div class="flex-wrapper">
       <child-forms
-        v-for="(Child, id) in Form_Childs_Data"
+        v-for="(Child, id) in FormChildsData"
         :key="Child"
         :child_data="Child"
         :childID="id"
@@ -42,52 +42,43 @@
 import ChildForms from "../components/ChildForms.vue";
 import Input from "../components/Input.vue";
 export default {
-  data() {
-    return {
-      Form_Parent_Data: {
-        name: this.ParentData.name,
-        age: this.ParentData.age,
-      },
-      Form_Childs_Data: [],
-    };
-  },
-  inject: ["ParentData", "ChildsData"],
+  inject: ["ParentData", "ChildsData", "FormParentData", "FormChildsData"],
   components: {
     Input,
     ChildForms,
   },
   computed: {
     BlockButton() {
-      return this.Form_Childs_Data.length == 5 ? true : false;
+      return this.FormChildsData.length == 5 ? true : false;
     },
   },
   methods: {
     AddChild() {
-      this.Form_Childs_Data.push({ name: "", age: "" });
+      this.FormChildsData.push({ name: "", age: "" });
     },
     DeleteChild(id) {
-      this.Form_Childs_Data.splice(id, 1);
+      this.FormChildsData.splice(id, 1);
     },
     ChildDataLocalSave(name, age, id) {
-      this.Form_Childs_Data[id].name = name;
-      this.Form_Childs_Data[id].age = age;
+      this.FormChildsData[id].name = name;
+      this.FormChildsData[id].age = age;
     },
     ParentDataChange(type, value) {
       if (type == "Имя") {
-        this.Form_Parent_Data.name = value;
+        this.FormParentData.name = value;
       } else if (type == "Возраст") {
-        this.Form_Parent_Data.age = value;
+        this.FormParentData.age = value;
       }
     },
     SaveData() {
       if (
-        this.FormValidation(this.Form_Parent_Data) &&
-        this.Form_Childs_Data.every((el) => this.FormValidation(el))
+        this.FormValidation(this.FormParentData) &&
+        this.FormChildsData.every((el) => this.FormValidation(el))
       ) {
-        this.ParentData.name = this.Form_Parent_Data.name;
-        this.ParentData.age = this.Form_Parent_Data.age;
+        this.ParentData.name = this.FormParentData.name;
+        this.ParentData.age = this.FormParentData.age;
         this.ChildsData.splice(0);
-        Object.values(this.Form_Childs_Data).forEach((el) =>
+        Object.values(this.FormChildsData).forEach((el) =>
           this.ChildsData.push(el)
         );
       } else {
@@ -106,14 +97,6 @@ export default {
         return false;
       }
     },
-  },
-  mounted() {
-    for (let i = 0; i < this.ChildsData.length; i++) {
-      this.Form_Childs_Data.push({});
-      for (let variable in this.ChildsData[i]) {
-        this.Form_Childs_Data[i][variable] = this.ChildsData[i][variable];
-      }
-    }
   },
 };
 </script>
