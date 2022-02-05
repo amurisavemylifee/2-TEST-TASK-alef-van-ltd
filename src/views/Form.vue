@@ -81,27 +81,46 @@ export default {
       }
     },
     SaveData() {
-      this.ParentData.name = this.Form_Parent_Data.name;
-      this.ParentData.age = this.Form_Parent_Data.age;
-      if (this.ChildsData.length < this.Form_Childs_Data.length) {
-        for (
-          let i = this.ChildsData.length;
-          i < this.Form_Childs_Data.length;
-          i++
-        ) {
-          this.ChildsData.push({});
+      if (
+        this.FormValidation(this.Form_Parent_Data) &&
+        this.Form_Childs_Data.every((el) => this.FormValidation(el))
+      ) {
+        this.ParentData.name = this.Form_Parent_Data.name;
+        this.ParentData.age = this.Form_Parent_Data.age;
+        if (this.ChildsData.length < this.Form_Childs_Data.length) {
+          for (
+            let i = this.ChildsData.length;
+            i < this.Form_Childs_Data.length;
+            i++
+          ) {
+            this.ChildsData.push({});
+          }
+        } else {
+          for (
+            let i = this.Form_Childs_Data.length;
+            i < this.ChildsData.length;
+
+          ) {
+            this.ChildsData.splice(0, 1);
+          }
+        }
+        for (let i = 0; i < this.ChildsData.length; i++) {
+          this.ChildsData[i] = this.Form_Childs_Data[i];
         }
       } else {
-        for (
-          let i = this.Form_Childs_Data.length;
-          i < this.ChildsData.length;
-
-        ) {
-          this.ChildsData.splice(0, 1);
-        }
+        alert("Введены некорректные данные");
       }
-      for (let i = 0; i < this.ChildsData.length; i++) {
-        this.ChildsData[i] = this.Form_Childs_Data[i];
+    },
+    FormValidation(obj) {
+      if (
+        obj.name != "" &&
+        obj.age != "" &&
+        /^[a-zA-ZА-Яа-я]*$/g.test(obj.name) &&
+        /^[0-9]*$/g.test(obj.age)
+      ) {
+        return true;
+      } else {
+        return false;
       }
     },
   },
