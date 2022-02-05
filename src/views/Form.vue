@@ -17,7 +17,7 @@
     <!-- Формы для изменения данных детей -->
     <div class="title">Дети (макс. 5)</div>
     <!-- Кнопка добавления ребенка(если детей 5 она исчезает) -->
-    <button class="add-btn" v-if="!BlockButton" @click="AddChild()">
+    <button class="add-btn" v-if="!ChildCountCheck" @click="AddChild()">
       <img src="@/assets/Union.png" />
       Добавить ребенка
     </button>
@@ -26,10 +26,10 @@
       <child-forms
         v-for="(Child, id) in FormChildsData"
         :key="Child"
-        :child_data="Child"
-        :childID="id"
+        :ChildData="Child"
+        :ChildID="id"
         @DeleteChild="DeleteChild(id)"
-        @inputChange="ChildDataLocalSave"
+        @inputChange="ChildDataFormChange"
         @enterPress="SaveData"
       ></child-forms>
     </div>
@@ -48,21 +48,26 @@ export default {
     ChildForms,
   },
   computed: {
-    BlockButton() {
+    // Проверка количества детей
+    ChildCountCheck() {
       return this.FormChildsData.length == 5 ? true : false;
     },
   },
   methods: {
+    // Добавить ребенка
     AddChild() {
       this.FormChildsData.push({ name: "", age: "" });
     },
+    // Удалить ребенка
     DeleteChild(id) {
       this.FormChildsData.splice(id, 1);
     },
-    ChildDataLocalSave(name, age, id) {
+    // Изменение данных детей в формах
+    ChildDataFormChange(name, age, id) {
       this.FormChildsData[id].name = name;
       this.FormChildsData[id].age = age;
     },
+    // Изменение данных родителя
     ParentDataChange(type, value) {
       if (type == "Имя") {
         this.FormParentData.name = value;
@@ -70,6 +75,7 @@ export default {
         this.FormParentData.age = value;
       }
     },
+    // Сохранить данные из инпутов
     SaveData() {
       if (
         this.FormValidation(this.FormParentData) &&
@@ -85,6 +91,7 @@ export default {
         alert("Введены некорректные данные");
       }
     },
+    // Валидация форм
     FormValidation(obj) {
       if (
         obj.name != "" &&

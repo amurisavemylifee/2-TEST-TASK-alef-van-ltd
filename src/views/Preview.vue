@@ -9,7 +9,7 @@
     <!-- Данные детей -->
     <div class="title">Дети</div>
     <div class="flex-wrapper">
-      <ChildCard v-for="Child in ChildsData" :Data="Child" :key="Child" />
+      <ChildCard v-for="Child in ChildsData" :ChildData="Child" :key="Child" />
     </div>
   </div>
 </template>

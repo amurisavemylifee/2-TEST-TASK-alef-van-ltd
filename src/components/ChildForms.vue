@@ -21,15 +21,15 @@ import Input from "@/components/Input.vue";
 export default {
   data() {
     return {
-      name: this.child_data.name,
-      age: this.child_data.age,
+      name: this.ChildData.name,
+      age: this.ChildData.age,
     };
   },
   props: {
-    child_data: {
+    ChildData: {
       type: Object,
     },
-    childID: {
+    ChildID: {
       type: Number,
     },
   },
@@ -43,7 +43,7 @@ export default {
       } else if (type == "Возраст") {
         this.age = value;
       }
-      this.$emit("inputChange", this.name, this.age, this.childID);
+      this.$emit("inputChange", this.name, this.age, this.ChildID);
     },
   },
 };
