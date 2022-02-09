@@ -1,12 +1,13 @@
 <template>
-  <div class="input_wrapper">
+  <div :class="{ input_wrapper: true, warning: !errorCheck }">
     <div class="label">{{ label }}</div>
     <input
-      type="text"
+      :type="input_type"
       class="input"
       v-model="value"
       @input="this.$emit('inputChange', label, value)"
     />
+    <small v-for="i in error" :key="i">{{ i }}</small>
   </div>
 </template>
   
@@ -24,8 +25,19 @@ export default {
       default: "",
     },
     input_value: {
+      type: Number,
+    },
+    input_type: {
       type: String,
-      default: "",
+      default: "text",
+    },
+    error: {
+      type: Array,
+    },
+  },
+  computed: {
+    errorCheck() {
+      return this.error.every((el) => el === null);
     },
   },
 };
@@ -49,5 +61,12 @@ export default {
   line-height: 16px;
   color: rgba(17, 17, 17, 0.48);
   user-select: none;
+}
+.warning {
+  border: 1px solid #ff0000;
+}
+small {
+  font-size: 10px;
+  color: #ff0000;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="container">
     <!-- Данные Родителя -->
     <div class="title">Персональные данные</div>
-    <div class="parent-card">
+    <div class="parent-card" v-if="checkFormData">
       {{ ParentData.name }}, {{ ParentData.age + " " }}
       {{ AgeCheck(ParentData.age) }}
     </div>
@@ -37,6 +37,11 @@ export default {
     return {
       AgeCheck: this.AgeCheck,
     };
+  },
+  computed: {
+    checkFormData() {
+      return this.ParentData.name !== "" && this.ParentData.age !== "";
+    },
   },
 };
 </script>

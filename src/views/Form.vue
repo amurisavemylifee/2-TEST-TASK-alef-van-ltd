@@ -3,14 +3,18 @@
     <!-- Формы для изменения данных родителя -->
     <div class="title">Персональные данные</div>
     <Input
-      :input_label="'Имя'"
+      input_label="Имя"
       :input_value="FormParentData.name"
+      input_type="text"
+      :error="[errors.ParentNameIncludesNumbers, errors.ParentNameEmpty]"
       @inputChange="ParentDataChange"
       @keypress.enter="SaveData"
     />
     <Input
-      :input_label="'Возраст'"
+      input_label="Возраст"
       :input_value="FormParentData.age"
+      input_type="number"
+      :error="[errors.ParentAgeEmpty]"
       @inputChange="ParentDataChange"
       @keypress.enter="SaveData"
     />
@@ -28,6 +32,7 @@
         :key="Child"
         :ChildData="Child"
         :ChildID="id"
+        :error="errors.ChildsErrors[id]"
         @DeleteChild="DeleteChild(id)"
         @inputChange="ChildDataFormChange"
         @enterPress="SaveData"
@@ -47,25 +52,41 @@ export default {
     Input,
     ChildForms,
   },
+  data() {
+    return {
+      errors: {
+        ParentNameIncludesNumbers: null,
+        ParentNameEmpty: null,
+        ParentAgeEmpty: null,
+        ChildsErrors: [],
+      },
+    };
+  },
   computed: {
     // Проверка количества детей
     ChildCountCheck() {
-      return this.FormChildsData.length == 5 ? true : false;
+      return this.FormChildsData.length == 5;
     },
   },
   methods: {
     // Добавить ребенка
     AddChild() {
       this.FormChildsData.push({ name: "", age: "" });
+      this.errors.ChildsErrors.push({
+        ChildNameIncludesNumbers: null,
+        ChildNameEmpty: null,
+        ChildAgeEmpty: null,
+      });
     },
     // Удалить ребенка
     DeleteChild(id) {
       this.FormChildsData.splice(id, 1);
+      this.errors.ChildsErrors.splice(id, 1);
     },
     // Изменение данных детей в формах
     ChildDataFormChange(name, age, id) {
       this.FormChildsData[id].name = name;
-      this.FormChildsData[id].age = age;
+      this.FormChildsData[id].age = String(age);
     },
     // Изменение данных родителя
     ParentDataChange(type, value) {
@@ -77,33 +98,61 @@ export default {
     },
     // Сохранить данные из инпутов
     SaveData() {
-      if (
-        this.FormValidation(this.FormParentData) &&
-        this.FormChildsData.every((el) => this.FormValidation(el))
-      ) {
+      if (!this.FormValidation()) {
         this.ParentData.name = this.FormParentData.name;
-        this.ParentData.age = this.FormParentData.age;
+        this.ParentData.age = String(this.FormParentData.age);
         this.ChildsData.splice(0);
         Object.values(this.FormChildsData).forEach((el) =>
           this.ChildsData.push(el)
         );
         this.$router.push("preview");
-      } else {
-        alert("Введены некорректные данные");
       }
     },
-    // Валидация форм
-    FormValidation(obj) {
-      if (
-        obj.name != "" &&
-        obj.age != "" &&
-        /^[a-zA-ZА-Яа-я\u0020]*$/g.test(obj.name) &&
-        /^[0-9]*$/g.test(obj.age)
-      ) {
-        return true;
+    FormValidation() {
+      let errorState = false;
+      if (/^[a-zA-ZА-Яа-я\u0020]*$/g.test(this.FormParentData.name)) {
+        this.errors.ParentNameIncludesNumbers = null;
       } else {
-        return false;
+        this.errors.ParentNameIncludesNumbers = "В имени не могут быть цифры";
+        errorState = true;
       }
+      if (this.FormParentData.name != "") {
+        this.errors.ParentNameEmpty = null;
+      } else {
+        this.errors.ParentNameEmpty = "Имя не может быть пустым";
+        errorState = true;
+      }
+      if (this.FormParentData.age != "") {
+        this.errors.ParentAgeEmpty = null;
+      } else {
+        this.errors.ParentAgeEmpty = "Возраст не может быть пустым";
+        errorState = true;
+      }
+      for (let i = 0; i < this.errors.ChildsErrors.length; i++) {
+        console.log(i);
+        if (/^[a-zA-ZА-Яа-я\u0020]*$/g.test(this.FormChildsData[i].name)) {
+          this.errors.ChildsErrors[i].ChildNameIncludesNumbers = null;
+        } else {
+          this.errors.ChildsErrors[i].ChildNameIncludesNumbers =
+            "В имени не могут быть цифры";
+          errorState = true;
+        }
+        if (this.FormChildsData[i].name != "") {
+          this.errors.ChildsErrors[i].ChildNameEmpty = null;
+        } else {
+          this.errors.ChildsErrors[i].ChildNameEmpty =
+            "Имя не может быть пустым";
+          errorState = true;
+        }
+        if (this.FormChildsData[i].age != "") {
+          this.errors.ChildsErrors[i].ChildAgeEmpty = null;
+        } else {
+          this.errors.ChildsErrors[i].ChildAgeEmpty =
+            "Возраст не может быть пустым";
+          errorState = true;
+        }
+      }
+      return errorState;
     },
   },
 };

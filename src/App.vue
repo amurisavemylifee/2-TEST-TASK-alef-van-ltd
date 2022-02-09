@@ -1,6 +1,9 @@
 <template>
   <Header />
-  <router-view></router-view>
+
+  <router-view v-slot="{ Component }"
+    ><keep-alive><component :is="Component"></component></keep-alive
+  ></router-view>
   <Footer />
 </template>
 <script>
@@ -10,8 +13,8 @@ import Footer from "./components/TheFooter.vue";
 export default {
   setup() {
     let ParentData = reactive({
-      name: "Виталий",
-      age: "31",
+      name: "",
+      age: "",
     });
     let ChildsData = ref([]);
     let FormParentData = reactive({

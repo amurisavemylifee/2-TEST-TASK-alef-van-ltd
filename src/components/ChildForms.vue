@@ -1,14 +1,18 @@
 <template>
   <div class="grid-wrapper">
     <Input
-      :input_label="'Имя'"
+      input_label="Имя"
       :input_value="name"
+      input_type="text"
+      :error="[error.ChildNameIncludesNumbers, error.ChildNameEmpty]"
       @inputChange="InputChanges"
       @keypress.enter="this.$emit('enterPress')"
     />
     <Input
-      :input_label="'Возраст'"
+      input_label="Возраст"
       :input_value="age"
+      input_type="number"
+      :error="[error.ChildAgeEmpty]"
       @inputChange="InputChanges"
       @keypress.enter="this.$emit('enterPress')"
     />
@@ -31,6 +35,9 @@ export default {
     },
     ChildID: {
       type: Number,
+    },
+    error: {
+      type: Object,
     },
   },
   components: {
