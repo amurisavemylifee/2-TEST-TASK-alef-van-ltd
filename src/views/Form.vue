@@ -33,12 +33,12 @@
       <form-child-inputs
         v-for="(Child, id) in FormChildsData"
         :key="Child"
-        :ChildData="Child"
-        :ChildID="id"
-        :error="errors.ChildsErrors[id]"
+        :child-data="Child"
+        :child-id="id"
+        :errors-handler="errors.ChildsErrors[id]"
         @DeleteChild="DeleteChild(id)"
-        @inputChange="ChildDataFormChange"
-        @enterPress="SaveData"
+        @InputChange="ChildDataFormChange"
+        @EnterPress="SaveData"
       ></form-child-inputs>
     </div>
     <!-- Кнопка сохранения форм -->
