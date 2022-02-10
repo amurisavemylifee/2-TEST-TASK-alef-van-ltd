@@ -1,6 +1,6 @@
 <template>
   <div class="child-card">
-    {{ ChildData.name }}, {{ ChildData.age + " " }}{{ AgeCheck(ChildData.age) }}
+    {{ childData.name }}, {{ childData.age + " " }}{{ AgeCheck(childData.age) }}
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
   inject: ["AgeCheck"],
   props: {
-    ChildData: {
+    childData: {
       type: Object,
     },
   },
