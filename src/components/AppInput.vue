@@ -1,43 +1,45 @@
 <template>
-  <div :class="{ input_wrapper: true, warning: !errorCheck }">
-    <div class="label">{{ label }}</div>
+  <div :class="{ input_wrapper: true, warning: !ErrorCheck }">
+    <div class="label">{{ Label }}</div>
     <input
-      :type="input_type"
+      :type="inputType"
       class="input"
-      v-model="value"
-      @input="this.$emit('inputChange', label, value)"
+      v-model="Value"
+      @input="this.$emit('inputChange', Label, Value)"
     />
-    <small v-for="i in error" :key="i">{{ i }}</small>
+    <small v-for="i in errorsHandler" :key="i">{{ i }}</small>
   </div>
 </template>
   
 <script>
 export default {
+  emits: ["inputChange"],
   data() {
     return {
-      value: this.input_value,
-      label: this.input_label,
+      Value: this.inputValue,
+      Label: this.inputLabel,
     };
   },
   props: {
-    input_label: {
+    inputLabel: {
       type: String,
       default: "",
     },
-    input_value: {
-      type: Number,
+    inputValue: {
+      type: String,
+      default: "",
     },
-    input_type: {
+    inputType: {
       type: String,
       default: "text",
     },
-    error: {
+    errorsHandler: {
       type: Array,
     },
   },
   computed: {
-    errorCheck() {
-      return this.error.every((el) => el === null);
+    ErrorCheck() {
+      return this.errorsHandler.every((el) => el === null);
     },
   },
 };

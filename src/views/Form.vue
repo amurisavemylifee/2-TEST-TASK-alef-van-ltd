@@ -3,18 +3,21 @@
     <!-- Формы для изменения данных родителя -->
     <div class="title">Персональные данные</div>
     <app-input
-      input_label="Имя"
-      :input_value="FormParentData.name"
-      input_type="text"
-      :error="[errors.ParentNameIncludesNumbers, errors.ParentNameEmpty]"
+      input-label="Имя"
+      :input-value="FormParentData.name"
+      input-type="text"
+      :errors-handler="[
+        errors.ParentNameIncludesNumbers,
+        errors.ParentNameEmpty,
+      ]"
       @inputChange="ParentDataChange"
       @keypress.enter="SaveData"
     ></app-input>
     <app-input
-      input_label="Возраст"
-      :input_value="FormParentData.age"
-      input_type="number"
-      :error="[errors.ParentAgeEmpty]"
+      input-label="Возраст"
+      :input-value="FormParentData.age"
+      input-type="number"
+      :errors-handler="[errors.ParentAgeEmpty]"
       @inputChange="ParentDataChange"
       @keypress.enter="SaveData"
     ></app-input>

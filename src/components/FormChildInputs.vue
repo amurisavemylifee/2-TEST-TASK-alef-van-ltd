@@ -1,18 +1,18 @@
 <template>
   <div class="grid-wrapper">
     <app-input
-      input_label="Имя"
-      :input_value="name"
-      input_type="text"
-      :error="[error.ChildNameIncludesNumbers, error.ChildNameEmpty]"
+      input-label="Имя"
+      :input-value="name"
+      input-type="text"
+      :errors-handler="[error.ChildNameIncludesNumbers, error.ChildNameEmpty]"
       @inputChange="InputChanges"
       @keypress.enter="this.$emit('enterPress')"
     ></app-input>
     <app-input
-      input_label="Возраст"
-      :input_value="age"
-      input_type="number"
-      :error="[error.ChildAgeEmpty]"
+      input-label="Возраст"
+      :input-value="age"
+      input-type="number"
+      :errors-handler="[error.ChildAgeEmpty]"
       @inputChange="InputChanges"
       @keypress.enter="this.$emit('enterPress')"
     ></app-input>
