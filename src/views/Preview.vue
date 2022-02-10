@@ -9,17 +9,21 @@
     <!-- Данные детей -->
     <div class="title">Дети</div>
     <div class="flex-wrapper">
-      <ChildCard v-for="Child in ChildsData" :ChildData="Child" :key="Child" />
+      <preview-child-card
+        v-for="Child in ChildsData"
+        :ChildData="Child"
+        :key="Child"
+      ></preview-child-card>
     </div>
   </div>
 </template>
 
 <script>
-import ChildCard from "../components/ChildCard.vue";
+import PreviewChildCard from "../components/PreviewChildCard.vue";
 export default {
   inject: ["ParentData", "ChildsData"],
   components: {
-    ChildCard,
+    PreviewChildCard,
   },
   methods: {
     AgeCheck(age) {

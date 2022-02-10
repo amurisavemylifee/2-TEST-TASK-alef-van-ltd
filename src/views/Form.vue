@@ -2,22 +2,22 @@
   <div class="container">
     <!-- Формы для изменения данных родителя -->
     <div class="title">Персональные данные</div>
-    <Input
+    <app-input
       input_label="Имя"
       :input_value="FormParentData.name"
       input_type="text"
       :error="[errors.ParentNameIncludesNumbers, errors.ParentNameEmpty]"
       @inputChange="ParentDataChange"
       @keypress.enter="SaveData"
-    />
-    <Input
+    ></app-input>
+    <app-input
       input_label="Возраст"
       :input_value="FormParentData.age"
       input_type="number"
       :error="[errors.ParentAgeEmpty]"
       @inputChange="ParentDataChange"
       @keypress.enter="SaveData"
-    />
+    ></app-input>
     <!-- Формы для изменения данных детей -->
     <div class="title">Дети (макс. 5)</div>
     <!-- Кнопка добавления ребенка(если детей 5 она исчезает) -->
@@ -27,7 +27,7 @@
     </button>
     <!-- Флекс обертка для форм с данными детей -->
     <div class="flex-wrapper">
-      <child-forms
+      <form-child-inputs
         v-for="(Child, id) in FormChildsData"
         :key="Child"
         :ChildData="Child"
@@ -36,7 +36,7 @@
         @DeleteChild="DeleteChild(id)"
         @inputChange="ChildDataFormChange"
         @enterPress="SaveData"
-      ></child-forms>
+      ></form-child-inputs>
     </div>
     <!-- Кнопка сохранения форм -->
     <button class="save-btn" @click="SaveData">Сохранить</button>
@@ -44,13 +44,13 @@
 </template>
 
 <script>
-import ChildForms from "../components/ChildForms.vue";
-import Input from "../components/Input.vue";
+import FormChildInputs from "../components/FormChildInputs.vue";
+import AppInput from "../components/AppInput.vue";
 export default {
   inject: ["ParentData", "ChildsData", "FormParentData", "FormChildsData"],
   components: {
-    Input,
-    ChildForms,
+    AppInput,
+    FormChildInputs,
   },
   data() {
     return {

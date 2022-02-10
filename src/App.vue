@@ -1,15 +1,15 @@
 <template>
-  <Header />
+  <TheHeader />
 
   <router-view v-slot="{ Component }"
     ><keep-alive><component :is="Component"></component></keep-alive
   ></router-view>
-  <Footer />
+  <TheFooter />
 </template>
 <script>
 import { provide, ref, reactive } from "vue";
-import Header from "./components/TheHeader.vue";
-import Footer from "./components/TheFooter.vue";
+import TheHeader from "./components/TheHeader.vue";
+import TheFooter from "./components/TheFooter.vue";
 export default {
   setup() {
     let ParentData = reactive({
@@ -28,8 +28,8 @@ export default {
     provide("FormChildsData", FormChildsData.value);
   },
   components: {
-    Header,
-    Footer,
+    TheHeader,
+    TheFooter,
   },
 };
 </script>

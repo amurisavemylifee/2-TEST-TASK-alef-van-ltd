@@ -1,27 +1,27 @@
 <template>
   <div class="grid-wrapper">
-    <Input
+    <app-input
       input_label="Имя"
       :input_value="name"
       input_type="text"
       :error="[error.ChildNameIncludesNumbers, error.ChildNameEmpty]"
       @inputChange="InputChanges"
       @keypress.enter="this.$emit('enterPress')"
-    />
-    <Input
+    ></app-input>
+    <app-input
       input_label="Возраст"
       :input_value="age"
       input_type="number"
       :error="[error.ChildAgeEmpty]"
       @inputChange="InputChanges"
       @keypress.enter="this.$emit('enterPress')"
-    />
+    ></app-input>
     <div class="delete-btn" @click="this.$emit('DeleteChild')">Удалить</div>
   </div>
 </template>
 
 <script>
-import Input from "@/components/Input.vue";
+import AppInput from "@/components/AppInput.vue";
 export default {
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
     },
   },
   components: {
-    Input,
+    AppInput,
   },
   methods: {
     InputChanges(type, value) {
