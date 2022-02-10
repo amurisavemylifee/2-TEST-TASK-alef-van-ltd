@@ -55,7 +55,7 @@ export default {
     AppInput,
     FormChildInputs,
   },
-  inject: ["ParentData", "ChildsData", "FormParentData", "FormChildsData"],
+  inject: ["ParentData", "ChildsData"],
   data() {
     return {
       errors: {
@@ -64,6 +64,11 @@ export default {
         ParentAgeEmpty: null,
         ChildsErrors: [],
       },
+      FormParentData: {
+        name: this.ParentData.name,
+        age: this.ParentData.age,
+      },
+      FormChildsData: this.ChildsData.slice(),
     };
   },
   computed: {

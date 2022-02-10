@@ -22,15 +22,8 @@ export default {
       age: "",
     });
     let ChildsData = ref([]);
-    let FormParentData = reactive({
-      name: ParentData.name,
-      age: ParentData.age,
-    });
-    let FormChildsData = ref(ChildsData.value.slice());
     provide("ParentData", ParentData);
     provide("ChildsData", ChildsData.value);
-    provide("FormParentData", FormParentData);
-    provide("FormChildsData", FormChildsData.value);
   },
 };
 </script>
