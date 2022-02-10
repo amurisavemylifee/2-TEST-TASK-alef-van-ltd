@@ -21,9 +21,15 @@
 <script>
 import PreviewChildCard from "../components/PreviewChildCard.vue";
 export default {
-  inject: ["ParentData", "ChildsData"],
+  name: "Preview",
   components: {
     PreviewChildCard,
+  },
+  inject: ["ParentData", "ChildsData"],
+  computed: {
+    CheckFormData() {
+      return this.ParentData.name !== "" && this.ParentData.age !== "";
+    },
   },
   methods: {
     AgeCheck(age) {
@@ -41,11 +47,6 @@ export default {
     return {
       AgeCheck: this.AgeCheck,
     };
-  },
-  computed: {
-    CheckFormData() {
-      return this.ParentData.name !== "" && this.ParentData.age !== "";
-    },
   },
 };
 </script>

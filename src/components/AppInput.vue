@@ -13,13 +13,8 @@
   
 <script>
 export default {
+  name: "AppInput",
   emits: ["inputChange"],
-  data() {
-    return {
-      Value: this.inputValue,
-      Label: this.inputLabel,
-    };
-  },
   props: {
     inputLabel: {
       type: String,
@@ -36,6 +31,12 @@ export default {
     errorsHandler: {
       type: Array,
     },
+  },
+  data() {
+    return {
+      Value: this.inputValue,
+      Label: this.inputLabel,
+    };
   },
   computed: {
     ErrorCheck() {

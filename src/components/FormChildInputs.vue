@@ -13,7 +13,7 @@
     ></app-input>
     <app-input
       input-label="Возраст"
-      :input-value="Age"
+      :input-value="String(Age)"
       input-type="number"
       :errors-handler="[errorsHandler.ChildAgeEmpty]"
       @inputChange="InputChanges"
@@ -26,13 +26,11 @@
 <script>
 import AppInput from "@/components/AppInput.vue";
 export default {
-  emits: ["EnterPress", "DeleteChild", "InputChange"],
-  data() {
-    return {
-      Name: this.childData.name,
-      Age: this.childData.age,
-    };
+  name: "FormChildInputs",
+  components: {
+    AppInput,
   },
+  emits: ["EnterPress", "DeleteChild", "InputChange"],
   props: {
     childData: {
       type: Object,
@@ -44,8 +42,11 @@ export default {
       type: Object,
     },
   },
-  components: {
-    AppInput,
+  data() {
+    return {
+      Name: this.childData.name,
+      Age: this.childData.age,
+    };
   },
   methods: {
     InputChanges(type, value) {

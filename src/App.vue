@@ -11,6 +11,11 @@ import { provide, ref, reactive } from "vue";
 import TheHeader from "./components/TheHeader.vue";
 import TheFooter from "./components/TheFooter.vue";
 export default {
+  name: "App",
+  components: {
+    TheHeader,
+    TheFooter,
+  },
   setup() {
     let ParentData = reactive({
       name: "",
@@ -26,10 +31,6 @@ export default {
     provide("ChildsData", ChildsData.value);
     provide("FormParentData", FormParentData);
     provide("FormChildsData", FormChildsData.value);
-  },
-  components: {
-    TheHeader,
-    TheFooter,
   },
 };
 </script>

@@ -6,12 +6,13 @@
 
 <script>
 export default {
-  inject: ["AgeCheck"],
+  name: "PreviewChildCard",
   props: {
     childData: {
       type: Object,
     },
   },
+  inject: ["AgeCheck"],
 };
 </script>
 

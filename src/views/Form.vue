@@ -15,7 +15,7 @@
     ></app-input>
     <app-input
       input-label="Возраст"
-      :input-value="FormParentData.age"
+      :input-value="String(FormParentData.age)"
       input-type="number"
       :errors-handler="[errors.ParentAgeEmpty]"
       @inputChange="ParentDataChange"
@@ -50,11 +50,12 @@
 import FormChildInputs from "../components/FormChildInputs.vue";
 import AppInput from "../components/AppInput.vue";
 export default {
-  inject: ["ParentData", "ChildsData", "FormParentData", "FormChildsData"],
+  name: "Form",
   components: {
     AppInput,
     FormChildInputs,
   },
+  inject: ["ParentData", "ChildsData", "FormParentData", "FormChildsData"],
   data() {
     return {
       errors: {
@@ -132,7 +133,6 @@ export default {
         errorState = true;
       }
       for (let i = 0; i < this.errors.ChildsErrors.length; i++) {
-        console.log(i);
         if (/^[a-zA-ZА-Яа-я\u0020]*$/g.test(this.FormChildsData[i].name)) {
           this.errors.ChildsErrors[i].ChildNameIncludesNumbers = null;
         } else {
